@@ -1,0 +1,38 @@
+
+#app, .app {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+    z-index: -10;
+}
+
+.leaflet-cords-a {
+    width: 75px !important;
+}
+
+.feature-info {
+    width: 350px;
+    height: 100px;
+    background-color: rgba(255,255,255,.75) !important;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.slider-control {
+    position: absolute;
+    right: 100px;
+    left: 10px;
+    bottom: 10px;
+}
+
+.slider-control .MuiSlider-root,
+.slider-control .MuiLinearProgress-root {
+    width: calc(100% - 200px) !important;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.slider-control .MuiLinearProgress-root {
+    height: 10px !important;
+}
