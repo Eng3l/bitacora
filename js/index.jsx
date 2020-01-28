@@ -4,8 +4,11 @@ import ReactDOM from 'react-dom';
 
 import { SnackbarProvider } from 'notistack';
 import Paper from '@material-ui/core/Paper'
+// import 'typeface-roboto';
+import Typography from '@material-ui/core/Typography';
 
 import Player from './player'
+import Gallery from './gallery'
 // import Typography from '@material-ui/core/Typography'
 
 class App extends React.Component {
@@ -83,7 +86,10 @@ class App extends React.Component {
             console.log(this.state.feature)
             info = (
                 <Paper className='feature-info'>
-                    <h2>{this.state.feature.properties.label}</h2>
+                    {/* <Typography variant="h5" gutterBottom>
+                        {this.state.feature.properties.label}
+                    </Typography> */}
+                    <Gallery/>
                 </Paper>
             )
         }
@@ -116,4 +122,77 @@ const app = (
     </SnackbarProvider>
 )
 
-ReactDOM.render(app, document.getElementById('app'));
+import {useState, useEffect} from 'react';
+import {PlayerFunction} from './player'
+
+function MainApp() {
+    
+    const [map, setMap] = useState(null);
+    const [td, setTd] = useState(null);
+    const [feature, setFeature] = useState(null);
+
+    useEffect(() => {
+        const map = L.map('map', {
+            center: [22, -79],
+            zoom: 7,
+            zoomControl: false,
+            attributionControl: false,
+            timeDimensionControlOptions: {
+                position: 'bottomright',
+                loopButton: true,
+                speedSlider: false,
+                playerOptions: {
+                    transitionTime: 1000,
+                    buffer: 10,
+                    loop: true,
+                }
+            },
+            timeDimension: true,
+            timeDimensionControl: false,
+        })
+        L.tileLayer('http://127.0.0.1:8081/osm/{z}/{x}/{y}.png').addTo(map);
+        (new L.Control.Coords()).addTo(map);
+
+        setMap(map)
+        setTd(map.timeDimension)
+
+        fetch('/api/v1/events')
+            .then(res => res.json())
+            .then(res => {
+                const layer = L.timeDimension.layer.timeGeoJson(L.geoJson(res, {
+                    pointToLayer: function (feature, latLng) {
+                        const m= L.marker(latLng)
+                        m.on('click', event => {
+                            setFeature(event.target.feature)
+                        })
+                        return m;
+                    }
+                }));
+                map.timeDimension.setAvailableTimes(layer._availableTimes, 'union');
+                layer.addTo(map)
+            })
+    }, [])
+
+
+    return (
+        <div className="app">
+            {feature && (
+                <Paper className='feature-info'>
+                    <Typography variant="h5" gutterBottom>
+                        {feature.properties.label}
+                    </Typography>
+                </Paper>
+            )}
+            <div className="app" id="map">
+
+            </div>
+            <PlayerFunction
+              td={td}
+              setFeature={setFeature}
+              />
+        </div>
+    )
+
+}
+
+ReactDOM.render(<MainApp/>, document.getElementById('app'));
