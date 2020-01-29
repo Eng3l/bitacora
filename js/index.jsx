@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 
 import Paper from '@material-ui/core/Paper'
-// import 'typeface-roboto';
+import 'typeface-roboto';
 import Typography from '@material-ui/core/Typography';
 
 import Player from './player'

@@ -1,5 +1,6 @@
 node_modules
 static/js/bundle.js
 static/js/vendors~bundle.js
+static/js/fonts
 data
 static/img
