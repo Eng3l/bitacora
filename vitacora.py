@@ -27,6 +27,8 @@ def api_events():
         with open(path.join('data', f)) as f:
             ly = json.load(f)
             ly['properties']['time'] = ts
+            imgs = [f for f in listdir(path.join('static', 'img', ly['properties']['folder']))]
+            ly['properties']['imgs'] = imgs
             features.append(ly)
 
     return jsonify({

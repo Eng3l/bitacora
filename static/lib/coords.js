@@ -33,8 +33,8 @@
         },
 
         _move: function (e) {
-            var lat = e.latlng.lat.toFixed(2),
-                lon = e.latlng.lng.toFixed(2);
+            var lat = e.latlng.lat.toFixed(3),
+                lon = e.latlng.lng.toFixed(3);
             this.link.text = lat + ":" + lon;
         },
 

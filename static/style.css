@@ -3,12 +3,13 @@
     position: absolute;
     top: 0px;
     bottom: 0px;
-    width: 100%;
+    left: 0px;
+    right: 0px;
     z-index: -10;
 }
 
 .leaflet-cords-a {
-    width: 75px !important;
+    width: 90px !important;
 }
 
 .feature-info {
@@ -21,7 +22,7 @@
 
 .slider-control {
     position: absolute;
-    right: 100px;
+    right: 120px;
     left: 10px;
     bottom: 10px;
 }
@@ -35,4 +36,13 @@
 
 .slider-control .MuiLinearProgress-root {
     height: 10px !important;
+}
+
+.feature-pictures {
+    position: absolute;
+    height: 170px;
+    background-color: rgba(255,255,255,.75) !important;
+    bottom: 50px;
+    left: 10px;
+    right: 10px;
 }

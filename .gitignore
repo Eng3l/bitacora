@@ -1,3 +1,5 @@
 node_modules
 static/js/bundle.js
 static/js/vendors~bundle.js
+data
+static/img
