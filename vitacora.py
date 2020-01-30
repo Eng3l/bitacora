@@ -16,6 +16,9 @@ def api_events():
     features      = []
 
     for f in listdir('data'):
+        print(f)
+        if not f.endswith('.geojson'):
+            continue
         time, label = f.split('-')
         y = time[:4]
         m = time[4:6]
@@ -28,7 +31,7 @@ def api_events():
             ly = json.load(f)
             ly['properties']['time'] = ts
             if not 'label' in ly['properties']:
-                ly['properties']['label'] = label[:-5]
+                ly['properties']['label'] = label[:-8]
             imgs = [f for f in listdir(path.join('static', 'img', ly['properties']['folder']))]
             ly['properties']['imgs'] = imgs
             features.append(ly)

@@ -46,13 +46,7 @@ function MainApp() {
                 const layer = L.timeDimension.layer.timeGeoJson(L.geoJson(res, {
                     pointToLayer: function (ft, latLng) {
                         const m= L.marker(latLng)
-                        m.on('click', event => {
-                            if (feature == event.target.feature) {
-                                setFeature(null)
-                            } else {
-                                setFeature(event.target.feature)
-                            }
-                        })
+                        m.on('click', (event) => setFeature(event.target.feature))
                         return m;
                     }
                 }));
@@ -60,7 +54,6 @@ function MainApp() {
                 layer.addTo(map)
             })
     }, [])
-
 
     return (
         <div className="app">

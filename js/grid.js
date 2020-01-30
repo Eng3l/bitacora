@@ -6,6 +6,8 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 // import IconButton from '@material-ui/core/IconButton';
 // import StarBorderIcon from '@material-ui/icons/StarBorder';
 
+import SimpleModal from './modal';
+
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
@@ -32,12 +34,29 @@ export default
 function SingleLineGridList(props) {
     const classes = useStyles();
 
+    const [open, setOpen] = React.useState(false);
+    const [pict, setPict] = React.useState(null);
+
+    function handleClick(img) {
+        setPict(img)
+        setOpen(true)
+    }
+
     return (
         <div className={classes.root}>
+            <SimpleModal
+              open={open}
+              setOpen={setOpen}
+              img={pict}
+              folder={props.folder}
+              />
             <GridList cellHeight={160} className={classes.gridList} cols={4.5}>
                 {props.imgs.map(img => (
                     <GridListTile key={img}>
-                        <img src={'static/img/' + props.folder + '/' + img} />
+                        <img
+                          src={'static/img/' + props.folder + '/' + img}
+                          onClick={() => handleClick(img)}
+                          />
                         <GridListTileBar
                             title={img}
                             // titlePosition="top"

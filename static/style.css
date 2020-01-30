@@ -46,3 +46,8 @@
     left: 10px;
     right: 10px;
 }
+
+.img-modal {
+    max-width: 450px;
+    max-height: 350px;
+}
