@@ -16,7 +16,7 @@ def api_events():
     features      = []
 
     for f in listdir('data'):
-        time, _ = f.split('-')
+        time, label = f.split('-')
         y = time[:4]
         m = time[4:6]
         d = time[6:8]
@@ -27,6 +27,8 @@ def api_events():
         with open(path.join('data', f)) as f:
             ly = json.load(f)
             ly['properties']['time'] = ts
+            if not 'label' in ly['properties']:
+                ly['properties']['label'] = label[:-5]
             imgs = [f for f in listdir(path.join('static', 'img', ly['properties']['folder']))]
             ly['properties']['imgs'] = imgs
             features.append(ly)
