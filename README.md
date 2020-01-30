@@ -1,5 +1,5 @@
 
-# Vitacora
+# Bitacora
 
 This is a picture's gallery that allows you to organize yours pictures
 in time and space. Is a map that show markers representing the events
