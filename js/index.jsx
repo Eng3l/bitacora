@@ -36,6 +36,7 @@ function MainApp() {
         })
         L.tileLayer('http://127.0.0.1:8081/osm/{z}/{x}/{y}.png').addTo(map);
         (new L.Control.Coords()).addTo(map);
+        (new L.Control.Zoom({ position: 'topright' })).addTo(map);
 
         setMap(map)
         setTd(map.timeDimension)
