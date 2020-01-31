@@ -32,11 +32,11 @@ and inside that json the next structure:
 
 ## Installing
 
-1. First clone the project: `git clone https://github.com/Eng3l/vitacora.git`
+1. First clone the project: `git clone https://github.com/Eng3l/bitacora.git`
 2. Install npm modules: `npm install`
 3. Build the javascript modules: `./node_modules/.bin/webpack --mode development`
 4. Install *Flask* python module: pip install Flask
 
 ## Running
 
-Just run `python3 vitacora.py` and the server will be running on localhost.
+Just run `python3 bitacora.py` and the server will be running on localhost.

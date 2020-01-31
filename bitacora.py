@@ -16,7 +16,6 @@ def api_events():
     features      = []
 
     for f in listdir('data'):
-        print(f)
         if not f.endswith('.geojson'):
             continue
         time, label = f.split('-')
