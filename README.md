@@ -7,7 +7,7 @@ in space and by clicking those markers you can view the pictures.
 
 ## Data structure
 
-Inside the folder data you must put the events in the next format `YYYY-MM-DD-Simple_Label.json`
+Inside the folder data you must put the events in the next format `YYYYMMDD-Simple_Label.geojson`
 and inside that json the next structure:
 
 ```json
@@ -29,6 +29,17 @@ and inside that json the next structure:
 * **lat:** Latitude of the point
 * **picture_folder:** Name of the folder that contains the picture of the events
 * **optional_label:** Label of the event, replaces the label in the name if is set.
+
+## Base maps
+
+The file `maps.json` contains an array with tiles maps provider.
+
+```json
+[
+    {"label":"My map Provider", "url":"https://myprovider.org/{z}/{x}/{y}.png"},
+    {"label":"My map Provider2", "url":"https://myprovider2.org/{z}/{x}/{y}.png"},
+]
+```
 
 ## Installing
 

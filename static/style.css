@@ -29,7 +29,7 @@
 
 .slider-control .MuiSlider-root,
 .slider-control .MuiLinearProgress-root {
-    width: calc(100% - 200px) !important;
+    width: calc(100% - 275px) !important;
     display: inline-block;
     margin-left: 20px;
 }

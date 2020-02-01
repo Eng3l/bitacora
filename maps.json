@@ -1,0 +1,4 @@
+[
+    {"label":"osm local", "url":"http://127.0.0.1:8081/osm/{z}/{x}/{y}.png"},
+    {"label":"NASA BM", "url":"http://127.0.0.1:8081/bm/{z}/{x}/{y}.png"}
+]
