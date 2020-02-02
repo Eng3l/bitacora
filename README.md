@@ -14,7 +14,7 @@ and inside that json the next structure:
 {
     "type": "Feature",
     "geometry": {
-        "type": "Point",
+        "type": "Point[1]",
         "coordinates": [":lon", ":lat"]
     },
     "properties": {
@@ -51,3 +51,6 @@ The file `maps.json` contains an array with tiles maps provider.
 ## Running
 
 Just run `python3 bitacora.py` and the server will be running on localhost.
+
+## Biblio
+[1] http://wiki.geojson.org/GeoJson_draft_version_6

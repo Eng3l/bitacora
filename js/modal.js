@@ -18,16 +18,17 @@ export default function SimpleModal(props) {
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
             open={props.open}
+            maxWidth="lg"
+            fullWidth={true}
+            fullScreen={true}
             onClose={handleClose}
         >
             <DialogTitle id="form-dialog-title">{props.img}</DialogTitle>
-            <DialogContent dividers>
-                <p id="simple-modal-description">
-                    <img
-                        className="img-modal"
-                        src={'static/img/' + props.folder + '/' + props.img}
-                    />
-                </p>
+            <DialogContent dividers >
+                <img
+                    className="img-modal"
+                    src={'static/img/' + props.folder + '/' + props.img}
+                />
             </DialogContent>
             <DialogActions>
                 <Button autoFocus onClick={handleClose} color="primary">

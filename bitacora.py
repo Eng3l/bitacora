@@ -41,7 +41,7 @@ def api_events():
             if not 'label' in ly['properties']:
                 ly['properties']['label'] = label[:-8]
             imgs = [f for f in listdir(path.join('static', 'img', ly['properties']['folder']))]
-            ly['properties']['imgs'] = imgs
+            ly['properties']['imgs'] = sorted(imgs)
             features.append(ly)
 
     return jsonify({

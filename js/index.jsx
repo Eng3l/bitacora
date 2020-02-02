@@ -53,13 +53,25 @@ function MainApp() {
         (new L.Control.Coords()).addTo(map);
         (new L.Control.Zoom({ position: 'topright' })).addTo(map);
 
-        setMap(map)
-        setTd(map.timeDimension)
+        setMap(map);
+        setTd(map.timeDimension);
+        console.log(map)
 
         fetch('/api/v1/events')
             .then(res => res.json())
             .then(res => {
                 const layer = L.timeDimension.layer.timeGeoJson(L.geoJson(res, {
+                    style: {
+                        color: '#ff7800',
+                        weight: 5,
+                        opacity: 0.65
+                    },
+
+                    onEachFeature: (f, l) => {
+                        if(f.geometry.type == 'LineString')
+                        console.log(f, l)
+                    },
+
                     pointToLayer: function (ft, latLng) {
                         const m= L.marker(latLng)
                         m.on('click', (event) => openFeature(event.target.feature))
