@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, send_file
 from os import path, listdir
 import json
 from datetime import datetime
@@ -10,13 +10,21 @@ app = Flask('__main__')
 def index():
     return render_template('index.html')
 
+@app.route('/fonts/<string:font>')
+def fonts(font):
+    return send_file(path.join('static/js/fonts', font))
+
+@app.route('/api/v1/maps')
+def api_maps():
+    with open('maps.json') as f:
+        return jsonify(json.load(f))
+
 @app.route('/api/v1/events')
 def api_events():
     time_instants = []
     features      = []
 
     for f in listdir('data'):
-        print(f)
         if not f.endswith('.geojson'):
             continue
         time, label = f.split('-')
@@ -33,7 +41,7 @@ def api_events():
             if not 'label' in ly['properties']:
                 ly['properties']['label'] = label[:-8]
             imgs = [f for f in listdir(path.join('static', 'img', ly['properties']['folder']))]
-            ly['properties']['imgs'] = imgs
+            ly['properties']['imgs'] = sorted(imgs)
             features.append(ly)
 
     return jsonify({

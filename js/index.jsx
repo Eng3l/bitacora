@@ -14,6 +14,21 @@ function MainApp() {
     const [map, setMap] = useState(null);
     const [td, setTd] = useState(null);
     const [feature, setFeature] = useState(null);
+    const [base, setBase] = useState(0);
+    const [baseMaps, setBaseMaps] = useState([]);
+    let   featx = null;
+    const storage = window.localStorage;
+    let   layer = null;
+
+    const openFeature = (feat) => {
+        if (feat == featx) {
+            setFeature(null);
+            featx = null;
+        } else {
+            setFeature(feat);
+            featx = feat;
+        }
+    }
 
     useEffect(() => {
         const map = L.map('map', {
@@ -33,27 +48,68 @@ function MainApp() {
             },
             timeDimension: true,
             timeDimensionControl: false,
-        })
-        L.tileLayer('http://127.0.0.1:8081/osm/{z}/{x}/{y}.png').addTo(map);
+        });
+        
         (new L.Control.Coords()).addTo(map);
+        (new L.Control.Zoom({ position: 'topright' })).addTo(map);
 
-        setMap(map)
-        setTd(map.timeDimension)
+        setMap(map);
+        setTd(map.timeDimension);
+        console.log(map)
 
         fetch('/api/v1/events')
             .then(res => res.json())
             .then(res => {
                 const layer = L.timeDimension.layer.timeGeoJson(L.geoJson(res, {
+                    style: {
+                        color: '#ff7800',
+                        weight: 5,
+                        opacity: 0.65
+                    },
+
+                    onEachFeature: (f, l) => {
+                        if(f.geometry.type == 'LineString')
+                        console.log(f, l)
+                    },
+
                     pointToLayer: function (ft, latLng) {
                         const m= L.marker(latLng)
-                        m.on('click', (event) => setFeature(event.target.feature))
+                        m.on('click', (event) => openFeature(event.target.feature))
                         return m;
                     }
                 }));
                 map.timeDimension.setAvailableTimes(layer._availableTimes, 'union');
                 layer.addTo(map)
             })
+        let baseMap = storage.getItem('base_map');
+        if (baseMap != null) {
+            baseMap = JSON.parse(baseMap);
+            setBase(baseMap)
+        }
     }, [])
+
+    useEffect(() => {
+        if (map != null) {
+            fetch('/api/v1/maps')
+                .then(res => res.json())
+                .then(res => {
+                    setBaseMaps(res)
+                    if (!base && res.length) {
+                        setBase(res[0])
+                    }
+                })
+        }
+    }, [map])
+
+    useEffect(() => {
+        if (base) {
+            if (layer != null) {
+                layer.removeFrom(map)
+            }
+            layer = L.tileLayer(base.url).addTo(map);
+            storage.setItem('base_map', JSON.stringify(base));
+        }
+    }, [base])
 
     return (
         <div className="app">
@@ -79,6 +135,9 @@ function MainApp() {
             <Player
               td={td}
               setFeature={setFeature}
+              baseMap={base}
+              baseMaps={baseMaps}
+              setBase={setBase}
               />
         </div>
     )

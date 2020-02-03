@@ -6,10 +6,13 @@ import Slider from '@material-ui/core/Slider'
 // import LinearProgress from '@material-ui/core/LinearProgress'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Button from '@material-ui/core/Button'
+import MapRoundedIcon from '@material-ui/icons/MapRounded'
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import FastRewind from '@material-ui/icons/FastRewind';
 import FastForward from '@material-ui/icons/FastForward';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
+
+import OptionModal from './options'
 
 export default
 function Player(props) {
@@ -17,6 +20,7 @@ function Player(props) {
     const [value, setValue] = useState(0);
     const [max, setMax]     = useState(0);
     const [td, setTd]       = useState(null);
+    const [open, setOpen]   = React.useState(false);
 
     useEffect(() => {
         if (props.td) {
@@ -66,7 +70,17 @@ function Player(props) {
 
     return (
         <div className='slider-control'>
+            <OptionModal
+              open={open}
+              setOpen={setOpen}
+              baseMaps={props.baseMaps}
+              setBase={props.setBase}
+              baseMap={props.baseMap}
+            />
             <ButtonGroup size='small' variant='contained'>
+                <Button onClick={() => setOpen(true)}>
+                    <MapRoundedIcon/>
+                </Button>
                 <Button onClick={onFirst}>
                     <SkipPreviousIcon/>
                 </Button>
